@@ -55,7 +55,7 @@ ROOT_URLCONF = 'crypto_connect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Add paths to your template dirs here if any
+        'DIRS': [BASE_DIR / "templates"],  # Add paths to your template dirs here if any
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
