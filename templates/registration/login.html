@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title>My Portfolio</title>
 </head>
 <body>
-    <h1>Log in</h1>
+    <h1>{{ request.user.username }}'s Portfolio</h1>
 
-    {% if form.errors %}
-        <p style="color: red;">Your username and password didn't match. Please try again.</p>
+    <p>Portfolio ID: {{ portfolio.id }}</p>
+    <p>User: {{ portfolio.user.username }}</p>
+
+    <h2>Your Holdings</h2>
+    
+    {% if holdings %}
+        <ul>
+        {% for holding in holdings %}
+            <li>
+                {{ holding.cryptocurrency.name }}: 
+                {{ holding.amount }} units 
+                @ ${{ holding.avg_purchase_price }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No holdings yet. Add some cryptocurrencies to get started!</p>
     {% endif %}
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log in</button>
-    </form>
 </body>
 </html>
