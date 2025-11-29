@@ -6,9 +6,10 @@ from .models import Portfolio
 # Create your views here.
 @login_required
 def my_portfolio(request):
-    try:
-        portfolio = Portfolio.objects.get(user=request.user)
-    except Portfolio.DoesNotExist:
-        messages.error(request, "Portfolio not found.")
-        portfolio = None
-    return render(request, 'portfolio/my_portfolio.html', {'portfolio': portfolio}) 
+    portfolio = portfolio.objects.filter(user=request.user)
+    holdings = holdings.objects.filter(user=request.user)
+    
+    return render(request, "portfolio/my_portfolio.html", {
+        "portfolio": portfolio,
+        "holdings": holdings, 
+    })
