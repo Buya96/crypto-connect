@@ -6,3 +6,4 @@ urlpatterns = [
     path("my-portfolio/", views.my_portfolio, name="my_portfolio"),
     path("add-holding/", views.add_holding, name="add_holding"),
 ]
+
