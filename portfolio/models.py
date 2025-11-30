@@ -9,6 +9,7 @@ class Cryptocurrency (models.Model):
 
 class Portfolio(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100), default="My Portfolio"
 
     def __str__(self):
         return f"{self.user.username}'s Portfolio"
