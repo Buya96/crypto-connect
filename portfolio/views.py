@@ -15,8 +15,6 @@ def my_portfolio(request):
         "holdings": holdings,
     })
     
-    
-
 
 @login_required
 def add_holding(request):
@@ -46,4 +44,28 @@ def add_holding(request):
             messages.error(request, "All fields are required.")
 
     return render(request, "portfolio/add_holding.html", {"portfolio": portfolio}) 
+
+@login_required
+def edit_holding(request, holding_id):
+    portfolio  = Portfolio.objects.get(user=request.user)
+    holding = Holding.objects.get(id=holding_id, portfolio=portfolio)
+
+    if request.method == "POST":
+        holding.amount = float(request.POST.get("amount"))
+        holding.average_price = float(request.POST.get("avg_price"))
+        holding.save()
+        messages.success(request, f"Holding for {holding.cryptocurrency.name} updated successfully.")
+        return redirect('home')
+    
+    return render(request, "portfolio/edit_holding.html", {"holding": holding})
+
+@login_required
+def delete_holding(request, holding_id):
+    portfolio = Portfolio.objects.get(user=request.user)
+    holding = Holding.objects.get(id=holding_id, portfolio=portfolio)
+    holding.delete()
+    messages.success(request, f"Holding for {holding.cryptocurrency.name} deleted successfully.")
+    return redirect('home') 
+    
+
 
