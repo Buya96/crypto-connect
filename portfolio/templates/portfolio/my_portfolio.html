@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
-</head>
-<body>
-    <h1>{{ request.user.username }}'s Portfolio</h1>
+{% extends 'base.html' %}
 
-    <p>Portfolio ID: {{ portfolio.id }}</p>
-    <p>User: {{ portfolio.user.username }}</p>
+{% block content %}
+<h1>{{ request.user.username }}'s Portfolio</h1>
+<p>Portfolio ID: {{ portfolio.id }}</p>
+<p>User: {{ portfolio.user.username }}</p>
 
-    <p>This is the starting point for your portfolio dashboard.</p>
-    <a href="{% url 'add_holding' %}">Add a new holding</a>
-    <h2>Your Holdings</h2>
+<a href="{% url 'add_holding' %}" class="btn btn-primary mb-3">Add New Holding</a>
+<h2>Your Holdings</h2>
 
-
-</body>
-</html>
+{% if holdings %}
+    <ul class="list-group">
+    {% for holding in holdings %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ holding.cryptocurrency.name }}: 
+            {{ holding.amount }} units 
+            @ ${{ holding.avg_purchase_price }}
+            <div>
+                <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-muted">No holdings yet. <a href="{% url 'add_holding' %}">Add some cryptocurrencies</a> to get started!</p>
+{% endif %}
+{% endblock %}

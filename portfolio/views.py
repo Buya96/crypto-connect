@@ -7,13 +7,16 @@ from .models import Portfolio, Holding, Cryptocurrency
 @login_required
 def my_portfolio(request):
     portfolio, created = Portfolio.objects.get_or_create(user=request.user)
-    holdings = Holding.objects.filter(portfolio=portfolio)
-
     
+    holdings = Holding.objects.none()
+
     return render(request, "portfolio/my_portfolio.html", {
         "portfolio": portfolio,
-        "holdings": holdings, 
+        "holdings": holdings,
     })
+    
+    
+
 
 @login_required
 def add_holding(request):
