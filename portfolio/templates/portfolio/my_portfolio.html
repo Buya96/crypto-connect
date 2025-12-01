@@ -16,8 +16,8 @@
             {{ holding.amount }} units 
             @ ${{ holding.avg_purchase_price }}
             <div>
-                <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                <a href="{% url 'edit_holding' holding.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'delete_holding' holding.id %}" class="btn btn-sm btn-danger">Delete</a>
             </div>
         </li>
     {% endfor %}

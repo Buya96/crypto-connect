@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1>Edit Holding: {{ holding.cryptocurrency.name }}</h1>
+        
+        <form method="post" class="card p-4">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Amount</label>
+                <input type="number" name="amount" class="form-control" step="0.00000001" value="{{ holding.amount }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Avg Purchase Price ($)</label>
+                <input type="number" name="avg_price" class="form-control" step="0.01" value="{{ holding.avg_purchase_price }}" required>
+            </div>
+            
+            <button type="submit" class="btn btn-success w-100">Update Holding</button>
+        </form>
+        
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3 w-100">← Back to Portfolio</a>
+    </div>
+</div>
+{% endblock %}
