@@ -6,6 +6,7 @@
 <p>User: {{ portfolio.user.username }}</p>
 
 <a href="{% url 'add_holding' %}" class="btn btn-primary mb-3">Add New Holding</a>
+
 <h2>Your Holdings</h2>
 
 {% if holdings %}
@@ -14,7 +15,7 @@
         <li class="list-group-item d-flex justify-content-between align-items-center">
             {{ holding.cryptocurrency.name }}: 
             {{ holding.amount }} units 
-            @ ${{ holding.avg_purchase_price }}
+            @ ${{ holding.average_purchase_price }}
             <div>
                 <a href="{% url 'edit_holding' holding.id %}" class="btn btn-sm btn-warning">Edit</a>
                 <a href="{% url 'delete_holding' holding.id %}" class="btn btn-sm btn-danger">Delete</a>
