@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.contrib import messages 
 from .models import Portfolio, Holding, Cryptocurrency 
 
@@ -36,7 +36,7 @@ def add_holding(request):
                 portfolio=portfolio,
                 cryptocurrency=crypto,
                 amount=float(amount),
-                average_price=float(avg_price)
+                average_purchase_price=float(avg_price)
             )
             messages.success(request, f"Holding for {crypto_name} added successfully.")
             return redirect('home')

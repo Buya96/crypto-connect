@@ -15,7 +15,7 @@ class Portfolio(models.Model):
         return f"{self.user.username}'s Portfolio"
 
 class Holding(models.Model):
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE),
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     cryptocurrency = models.ForeignKey(Cryptocurrency, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=20, decimal_places=8)
     average_purchase_price = models.DecimalField(max_digits=20, decimal_places=8)
