@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Portfolio, Holding, Cryptocurrency
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login as auth_login
 
 
 @login_required
@@ -134,3 +136,19 @@ def delete_holding(request, holding_id):
         "portfolio/confirm_delete_holding.html",
         {"holding": holding},
     )
+    
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect("home")
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            messages.success(request, "Account created and you are now logged in.")
+            return redirect("home")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "registration/signup.html", {"form": form})
