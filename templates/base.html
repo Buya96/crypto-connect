@@ -34,8 +34,14 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                    <button type="submit" class="btn btn-link nav-link p-0 m-0" style="border: none;">
+                                        Log out
+                                    </button>
+                            </form>
                         </li>
+
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Log in</a>
