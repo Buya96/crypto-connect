@@ -1,31 +1,63 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-centre">
+<div class="row justify-content-center">
     <div class="col-md-6">
         <h1>Add New Holding</h1>
-        
+
         <form method="post" class="card p-4">
             {% csrf_token %}
-            
+
             <div class="mb-3">
-                <label class="form-label">Cryptocurrency Name</label>
-                <input type="text" name="crypto_name" class="form-control" placeholder="e.g. Bitcoin" required>
+                <label class="form-label" for="id_crypto_name">Cryptocurrency Name</label>
+                <input
+                    type="text"
+                    id="id_crypto_name"
+                    name="crypto_name"
+                    class="form-control"
+                    placeholder="e.g. Bitcoin"
+                    required
+                >
+                <small class="form-text text-muted">
+                    Enter the coin name (e.g. Bitcoin). Each coin is stored once and reused.
+                </small>
             </div>
-            
+
             <div class="mb-3">
-                <label class="form-label">Amount</label>
-                <input type="number" name="amount" class="form-control" step="0.00000001" placeholder="1.5" required>
+                <label class="form-label" for="id_amount">Amount</label>
+                <input
+                    type="number"
+                    id="id_amount"
+                    name="amount"
+                    class="form-control"
+                    step="0.00000001"
+                    placeholder="1.5"
+                    required
+                >
+                <small class="form-text text-muted">
+                    Amount of the coin you hold (must be greater than 0).
+                </small>
             </div>
-            
+
             <div class="mb-3">
-                <label class="form-label">Avg Purchase Price ($)</label>
-                <input type="number" name="avg_price" class="form-control" step="0.01" placeholder="45000.00" required>
+                <label class="form-label" for="id_avg_price">Avg Purchase Price ($)</label>
+                <input
+                    type="number"
+                    id="id_avg_price"
+                    name="avg_price"
+                    class="form-control"
+                    step="0.01"
+                    placeholder="45000.00"
+                    required
+                >
+                <small class="form-text text-muted">
+                    Average price paid per coin in dollars (must be greater than 0).
+                </small>
             </div>
-            
+
             <button type="submit" class="btn btn-success w-100">Add Holding</button>
         </form>
-        
+
         <a href="{% url 'home' %}" class="btn btn-secondary mt-3 w-100">← Back to Portfolio</a>
     </div>
 </div>

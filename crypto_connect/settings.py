@@ -8,17 +8,23 @@ import os
 from pathlib import Path
 import django_heroku
 import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()  # read .env file and load variables into the environment
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Locally, this falls back to a default; on Heroku set DJANGO_SECRET_KEY in Config Vars.
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "your-default-secret-key")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("DJANGO_SECRET_KEY environment variable must be set")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# On Heroku set DJANGO_DEBUG=False in Config Vars.
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "True"
+DJANGO_DEBUG = os.environ.get("DJANGO_DEBUG", "False")
+DEBUG = DJANGO_DEBUG.lower() == "true"
+
 
 ALLOWED_HOSTS = [
     # Heroku host (no https://, no trailing slash)
